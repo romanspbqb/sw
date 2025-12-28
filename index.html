@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Business Manicure — Маникюр для деловых</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0b0b0c;
+        --bg-soft: #111115;
+        --pink: #ff5fa2;
+        --pink-strong: #ff2e84;
+        --rose: #ffb6d9;
+        --text: #f7f0f4;
+        --muted: #b9a8b2;
+        --card: #15151b;
+        --line: rgba(255, 255, 255, 0.08);
+        --shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+        color: var(--text);
+        background: radial-gradient(1000px 500px at 15% 10%, rgba(255, 95, 162, 0.18), transparent 60%),
+          radial-gradient(1200px 700px at 85% 20%, rgba(255, 182, 217, 0.12), transparent 55%),
+          var(--bg);
+        min-height: 100vh;
+      }
+
+      .page {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page::before,
+      .page::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(0px);
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      .page::before {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, rgba(255, 95, 162, 0.6), transparent 65%);
+        top: -120px;
+        right: -120px;
+        animation: float 12s ease-in-out infinite;
+      }
+
+      .page::after {
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(255, 95, 162, 0.35);
+        bottom: -140px;
+        left: -140px;
+        animation: float 10s ease-in-out infinite reverse;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 6vw;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+
+      .logo {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--rose);
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--pink);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 48px;
+        padding: 80px 6vw 40px;
+        align-items: center;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: rgba(255, 95, 162, 0.12);
+        border: 1px solid rgba(255, 95, 162, 0.35);
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--rose);
+      }
+
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.6rem, 4vw, 4rem);
+        margin: 18px 0 10px;
+        line-height: 1.05;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 18px;
+        max-width: 520px;
+        line-height: 1.6;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 26px;
+        border-radius: 999px;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 15px;
+        letter-spacing: 0.05em;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--pink), var(--pink-strong));
+        color: #0b0b0c;
+        box-shadow: 0 20px 40px rgba(255, 46, 132, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .btn-ghost {
+        color: var(--rose);
+        border: 1px solid rgba(255, 182, 217, 0.5);
+      }
+
+      .hero-card {
+        background: linear-gradient(160deg, rgba(255, 95, 162, 0.18), rgba(11, 11, 12, 0.9));
+        border-radius: 32px;
+        padding: 32px;
+        border: 1px solid rgba(255, 95, 162, 0.35);
+        box-shadow: var(--shadow);
+        position: relative;
+      }
+
+      .hero-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        margin: 0 0 16px;
+      }
+
+      .price {
+        font-size: 54px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--rose);
+      }
+
+      .price small {
+        font-size: 18px;
+        color: var(--muted);
+        display: block;
+        margin-top: 8px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .list {
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        color: var(--muted);
+      }
+
+      .list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .list li::before {
+        content: "◆";
+        color: var(--pink);
+        font-size: 12px;
+      }
+
+      .section {
+        padding: 50px 6vw 80px;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        margin-bottom: 28px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .card {
+        background: var(--card);
+        padding: 24px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .card h4 {
+        margin-top: 0;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--rose);
+      }
+
+      .card p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .cta {
+        background: linear-gradient(120deg, rgba(255, 95, 162, 0.2), rgba(255, 182, 217, 0.05));
+        border-radius: 32px;
+        padding: 36px;
+        border: 1px solid rgba(255, 95, 162, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .cta h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 28px;
+        margin: 0 0 8px;
+      }
+
+      .cta p {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      footer {
+        padding: 28px 6vw 40px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.8s ease forwards;
+      }
+
+      .reveal.delay-1 {
+        animation-delay: 0.15s;
+      }
+
+      .reveal.delay-2 {
+        animation-delay: 0.3s;
+      }
+
+      .reveal.delay-3 {
+        animation-delay: 0.45s;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(18px);
+        }
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          display: none;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-card {
+          order: -1;
+        }
+
+        .cta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 520px) {
+        header {
+          padding: 22px 5vw;
+        }
+
+        .hero {
+          padding: 60px 5vw 30px;
+        }
+
+        .section {
+          padding: 40px 5vw 60px;
+        }
+
+        .price {
+          font-size: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="logo">Business Manicure</div>
+        <nav>
+          <a href="#services">Услуги</a>
+          <a href="#format">Формат</a>
+          <a href="#booking">Запись</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="reveal">
+          <div class="hero-badge">деловой стиль · без компромиссов</div>
+          <h1>Маникюр, который звучит уверенно.</h1>
+          <p>
+            Четкие линии, идеальная форма, благородный глянец. Для тех, кто ценит
+            аккуратность, скорость и стиль на переговорах.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#booking">Записаться</a>
+            <a class="btn btn-ghost" href="#services">Посмотреть услуги</a>
+          </div>
+        </div>
+
+        <div class="hero-card reveal delay-1">
+          <h3>Business Manicure</h3>
+          <p class="price">1500 ₽<small>фиксированная стоимость</small></p>
+          <ul class="list">
+            <li>чистая обработка + форма</li>
+            <li>деловой нюд / прозрачный глянец</li>
+            <li>45 минут в потоке дня</li>
+            <li>стерильные инструменты</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <h2 class="section-title reveal">Услуги для делового ритма</h2>
+        <div class="grid">
+          <div class="card reveal delay-1">
+            <h4>Экспресс</h4>
+            <p>Идеально перед встречей: быстрая коррекция формы и уход за кутикулой.</p>
+          </div>
+          <div class="card reveal delay-2">
+            <h4>Классика</h4>
+            <p>Деликатная обработка + покрытие, которое держит строгий стиль.</p>
+          </div>
+          <div class="card reveal delay-3">
+            <h4>Спа-уход</h4>
+            <p>Мягкое восстановление, питание и массаж кистей для свежего вида рук.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="format" class="section">
+        <div class="grid">
+          <div class="card reveal">
+            <h4>Формат</h4>
+            <p>По записи, без очередей. Можно вписать в график между встречами.</p>
+          </div>
+          <div class="card reveal delay-1">
+            <h4>Локация</h4>
+            <p>Центр города · закрытая студия · атмосфера приватности.</p>
+          </div>
+          <div class="card reveal delay-2">
+            <h4>Гарантия</h4>
+            <p>Чистота, стерилизация, стойкий результат без лишнего блеска.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" class="section">
+        <div class="cta reveal">
+          <div>
+            <h3>Запись на деловой маникюр</h3>
+            <p>Цена 1500 ₽. Свободные окна сегодня и завтра.</p>
+          </div>
+          <a class="btn btn-primary" href="tel:+70000000000">Позвонить</a>
+        </div>
+      </section>
+
+      <footer>
+        <div>© 2024 Business Manicure</div>
+        <div>Телефон: +7 000 000-00-00 · Instagram: @businessnails</div>
+      </footer>
+    </div>
+  </body>
+</html>
